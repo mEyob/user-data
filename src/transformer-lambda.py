@@ -9,6 +9,14 @@ logger.setLevel(logging.INFO)
 
 
 def parse(keys, data_dict, new_dict):
+    """
+    Exhuastively search a possibly nested 'data_dict' and 
+    retrieve values associated with a key in 'keys'. Store 
+    these key-value pairs in new_dict.
+    :param keys: a list of keys to search for
+    :param data_dict: a dictionary to be searched
+    :param new_dict: a dictionary for storing matching key, values
+    """
     for key, value in data_dict.items():
         if key in keys:
             new_dict[key] = value
@@ -17,8 +25,13 @@ def parse(keys, data_dict, new_dict):
     return new_dict
 
 
+def make_output(recordId, result, data):
+    return {'recordId': recordId, 'result': result, 'data': data}
+
+
 def lambda_handler(event, context):
     keys = ["first_name", "middle_name", "last_name", "zip_code"]
+    output = []
     payload = []
 
     for record in event["records"]:
@@ -33,6 +46,9 @@ def lambda_handler(event, context):
             logging.error(str(ex))
         if clean_data:
             payload.append(clean_data)
+        output_record = make_output(record['recordId'], 'Dropped',
+                                    record["data"])
+        output.append(output_record)
 
     total = "Total number of records = {}".format(len(event["records"]))
     success = "Successfully processed records = {}.".format(len(payload))
@@ -42,8 +58,9 @@ def lambda_handler(event, context):
     if len(payload) > 0:
         payload = '\n'.join(json.dumps(item) for item in payload)
 
-        now = datetime.utcnow().strftime("%Y/%m/%d/%H-%M")
+        now = datetime.utcnow().strftime("%Y/%m/%d/%H/%M")
         s3 = boto3.resource('s3')
         obj = s3.Object('processed-user-data-bucket-1822', now + '.json')
         obj.put(Body=payload)
-    return payload
+
+    return {'records': output}
