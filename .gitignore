@@ -149,3 +149,9 @@ consumer_cron.sh
 
 # Background process output
 nohup*
+
+# terraform
+example-lambda-tf/
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
