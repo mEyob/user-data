@@ -36,6 +36,12 @@ data "aws_iam_policy_document" "cloudwatch-log-group-ts-lambda" {
   }
 }
 
+resource "aws_iam_role_policy" "lambda_access_bucket_policy" {
+  name   = "lambda_access_bucket_policy"
+  role   = aws_iam_role.lambda_exec_ts.name
+  policy = data.aws_iam_policy_document.firehose_access.json
+}
+
 data "archive_file" "transformerLambdaFile" { 
   type = "zip"
   source_file = "src/transformer-lambda.py"
