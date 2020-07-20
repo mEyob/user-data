@@ -2,16 +2,18 @@ import requests
 import random
 
 names = [
-    "Boyd", "Jayde", "Brinley", "Boyd", "Blake", "Michael", "Boykin", "Alona",
-    "Mackenzie", "Boyle", "Mitchell", "Carson"
-    "Boyle", "Tyler", "Owen", "Brant", "Wayne", "Logan", "Brantwein", "Brooke",
-    "Chelsea", "Brashear", "Erin", "Isabella", "Braun", "Louise", "Sienna",
-    "Bravo", "Anthony", "Richard", "Breeden", "Noel", "Alahya"
+    "Boyd", "Jayde", "Brinley", "Boyd", "Blake", "Michael", 
+    "Boykin", "Alona", "Mackenzie", "Boyle", "Mitchell", 
+    "Carson", "Boyle", "Tyler", "Owen", "Brant", "Wayne", 
+    "Logan", "Brantwein", "Brooke", "Chelsea", "Brashear", 
+    "Erin", "Isabella", "Braun", "Louise", "Sienna",
+    "Bravo", "Anthony", "Richard", "Breeden", "Noel", 
+    "Alahya"
 ]
 
 zip_codes = [
-    "01234", "01269"
-    "04592", "02131", "03421", "01234", "92341", "02192", "91021", "34210",
+    "01234", "01269", "04592", "02131", "03421", 
+    "01234", "92341", "02192", "91021", "34210",
     "04321"
 ]
 
