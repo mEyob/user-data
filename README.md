@@ -43,7 +43,7 @@ The data pipeline is shown in the following figure.
 <center><img src="img/pipeline.png" align="middle" style="width: 400px; height: 300px" /></center>
 
 ### How to setup the pipeline
-Setup AWS credentials as environmental variables
+Setup AWS credentials as environmental variables. Make sure the user has sufficient permission to create and modify the services discussed above.
 ```
 export AWS_ACCESS_KEY_ID="access-key"
 export AWS_SECRET_ACCESS_KEY="secret-key"
