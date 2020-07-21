@@ -48,16 +48,30 @@ export AWS_ACCESS_KEY_ID="access-key"
 export AWS_SECRET_ACCESS_KEY="secret-key"
 export AWS_DEFAULT_REGION="region"
 ```
+Clone this repository
 
 ```bash
 git clone https://github.com/mEyob/user-data`
 ```
+
+Setup AWS infrastructure
 
 ```
 terraform init
 terraform plan
 terraform apply
 ```
+
+### Future work
+
+This code base is created as a prototype in a short period of time, so it could benefit from further work as discussed below.
+
+###### ETL and Analytics
+
+Glue and Athena are used in this code base. However, a quick Google search reveals a number of other alternative/complementary services such as Stitch, Elastic Search and Kibana. Comparing and benchmarking these alternatives for a specific use-case can be a compelling path to follow.
+
+###### Terraform 
+Variables such as lambda function and S3 bucket names are hard-coded. A more robust approach would be to input variables instead.
 
 ### Contact information
 [Misikir Eyob](https://meyob.github.io)
