@@ -4,6 +4,7 @@
 1. [Introduction](README.md#introduction)
 1. [Data pipeline](README.md#data-pipeline)
 1. [How to setup the pipeline](README.md#how-to-setup-the-pipeline)
+1. [Future work](README.md#future-work)
 1. [Contact Information](README.md#contact-information)
 
 
