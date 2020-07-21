@@ -17,7 +17,9 @@ def is_valid_json(json_data):
     """
     if isinstance(json_data, str):
         try: 
-            json.loads(json_data)
+            data = json.loads(json_data)
+            if isinstance(data, str):
+                json.loads(data)
         except:
             return False
     elif isinstance(json_data, dict):
