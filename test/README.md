@@ -6,6 +6,7 @@ A small test case for testing the following:
 - Requests with different JSON formats
 
 BEFORE RUNNING THE TEST CASES UPDATE THE URL WITH THE ONE RETURNED BY RUNNING 
-```Terraform apply
+```
+Terraform apply
 ```
 IN THE TERMINAL
