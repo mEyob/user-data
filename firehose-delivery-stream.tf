@@ -51,12 +51,12 @@ resource "aws_cloudwatch_log_stream" "kinesis_firehose_stream_logging_stream" {
 }
 
 resource "aws_s3_bucket" "kinesis_firehose_stream_bucket" {
-  bucket = "processed-user-data-bucket-1822"
+  bucket = var.firehose_bucket_name
   acl    = "private"
 }
 
 resource "aws_s3_bucket" "kinesis_firehose_stream_bucket_backup" {
-  bucket = "raw-user-data-bucket-1822"
+  bucket = var.firehose_raw_bucket_name
   acl    = "private"
 }
 

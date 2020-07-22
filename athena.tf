@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "hoge" {
-  bucket = "athena-query-result-1822"
+  bucket = var.athena_bucket_name
 }
 
 # uncomment the following lines to create 
