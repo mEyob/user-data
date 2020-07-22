@@ -54,7 +54,7 @@ def lambda_handler(event, context):
         try:
             clean_data = parse(keys, data, {})
         except Exception as ex:
-            logging.error(str(ex))
+            logger.error(str(ex))
         if clean_data:
             payload.append(clean_data)
         output_record = make_output(record['recordId'], 'Dropped',
