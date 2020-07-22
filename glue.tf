@@ -6,7 +6,7 @@ resource "aws_glue_crawler" "user_data_crawler" {
   database_name = "${aws_glue_catalog_database.glue_catalog_database.name}"
   name          = "user_data_crawler"
   role          = "${aws_iam_role.glue.arn}"
-  classifiers   = ["split-array-into-records"]
+  //classifiers   = ["split-array-into-records"]
 
   s3_target {
     path = "s3://${aws_s3_bucket.kinesis_firehose_stream_bucket.bucket}"
