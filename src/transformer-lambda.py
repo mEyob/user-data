@@ -7,6 +7,9 @@ from datetime import datetime
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
+# Change bucket name as needed
+DESTINATION_BUCKET_NAME = "processed-user-data-bucket-1822"
+
 
 def parse(keys, data_dict, new_dict):
     """
@@ -59,8 +62,8 @@ def lambda_handler(event, context):
         payload = '\n'.join(json.dumps(item) for item in payload)
 
         now = datetime.utcnow().strftime("%Y/%m/%d/%H/%M")
-        s3 = boto3.resource('s3')
-        obj = s3.Object('processed-user-data-bucket-1822', now + '.json')
+        s3 = boto3.resource("s3")
+        obj = s3.Object(DESTINATION_BUCKET_NAME, now + ".json")
         obj.put(Body=payload)
 
     return {'records': output}
