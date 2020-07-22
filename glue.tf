@@ -37,24 +37,8 @@ resource "aws_iam_role_policy_attachment" "glue_service" {
     policy_arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
 }
 
-resource "aws_iam_role_policy" "s3_access_policy" {
-  name = "s3_access_policy"
-  role = "${aws_iam_role.glue.id}"
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:*"
-      ],
-      "Resource": [
-        "arn:aws:s3:::processed-user-data-bucket-1822",
-        "arn:aws:s3:::processed-user-data-bucket-1822/*"
-      ]
-    }
-  ]
-}
-EOF
+resource "aws_iam_role_policy" "glue_service_s3" {
+    name = "glue_service_s3"
+    role = aws_iam_role.glue.id
+    policy = aws_iam_role_policy.kinesis_firehose_access_bucket_policy.policy
 }
