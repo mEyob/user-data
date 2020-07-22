@@ -45,8 +45,13 @@ nested_user_info = [
 
 ]
 
-def send_request(user_info, verbose=False):
-    URL = "https://6ji66tn9s8.execute-api.us-east-1.amazonaws.com/test"
+def green(s):
+    return '\033[1;32m%s\033[m\n' % s
+
+def red(s):
+    return '\033[1;31m%s\033[m\n' % s
+
+def send_request(URL, user_info, verbose=False):
     if verbose:
         print("\n-----------------------------------------------------------------")
         print("Sending request with the following URL\n")
@@ -59,7 +64,7 @@ def send_request(user_info, verbose=False):
         json=user_info
         )
 
-def simple_request(num_of_requests):
+def simple_request(URL, num_of_requests):
     responses = []
     for _ in range(num_of_requests):
         first_name, middle_name, last_name = [
@@ -72,46 +77,63 @@ def simple_request(num_of_requests):
             "last_name": last_name,
             "zip_code": zip_code
         }
-        req = send_request(user_info)
+        req = send_request(URL, user_info)
         responses.append(req.status_code)
     success = sum([1 for response in responses if int(response) == 200 ])
     return success / len(responses)
 
-def nested_request():
+def nested_request(URL):
     responses = []
     for user_info in nested_user_info:
-        req = send_request(user_info)
+        req = send_request(URL, user_info)
         responses.append(req.status_code)
     success = sum([1 for response in responses if int(response) == 200 ])
     return success / len(responses)
+
+def check(obj1, obj2):
+    if obj1 == obj2:
+        print(green("PASS"))
+    else:
+        print(red("FAIL"))
 
 
 def main(num_of_requests=10):
+    URL = input("Enter API Gateway URL:\n")
     print("\nTESTING WITH AN EMPTY REQUEST...")
-    response = send_request(user_info=None, verbose=True)
-    print("Expected output: Empty request")
-    print("Actual output  : {}\n".format(response.content.decode('utf-8')))
+    response = send_request(URL, user_info=None, verbose=True)
+    expected = "Empty request"
+    actual = response.content.decode('utf-8')
+    print("Expected output: {}".format(expected))
+    print("Actual output  : {}".format(actual))
+    check(expected, actual)
 
     print("TESTING A REQUEST WITH MALFORMED JSON...")
-    print("Expected output: Malformed JSON")
-    response = send_request(user_info='{"first_name": "Test, "last_name": "Test"}')
-    print("Actual output  : {}\n".format(response.content.decode('utf-8')))
+    response = send_request(URL, user_info='{"first_name": "Test, "last_name": "Test"}')
+    expected = "Malformed JSON"
+    actual = response.content.decode('utf-8')
+    print("Expected output: {}".format(expected))
+    print("Actual output  : {}".format(actual))
+    check(expected, actual)
 
-    print("TESTING A REQUEST WITH MISSING NAME OR ZIPCODE JSON...")
-    print("Expected output: JSON missing required keys")
-    response = send_request(user_info={"first_name": "Test", "last_name": "Test"})
-    print("Actual output  : {}\n".format(response.content.decode('utf-8')))
+    print("TESTING A REQUEST WITH MISSING NAME OR ZIPCODE JSON KEYS...")
+    response = send_request(URL, user_info={"first_name": "Test", "last_name": "Test"})
+    expected = "JSON missing required keys"
+    actual = response.content.decode('utf-8')
+    print("Expected output: {}".format(expected))
+    print("Actual output  : {}".format(actual))
+    check(expected, actual)
 
     print("TESTING WITH USER INFO IN FLAT JSON FORMAT...")
     print("Number of requests {}".format(num_of_requests))
-    success_rate = int(simple_request(num_of_requests) * 100)
+    success_rate = int(simple_request(URL, num_of_requests) * 100)
     print("{}% requests returned with status code 200\n".format(success_rate))
 
     print("TESTING WITH USER INFO IN NESTED JSON FORMAT...")
     print("Number of requests {}".format(len(nested_user_info)))
-    success_rate = int(nested_request() * 100)
+    success_rate = int(nested_request(URL) * 100)
     print("{}% requests returned with status code 200\n".format(success_rate))
     print("Check S3 bucket after a time period equal to")
     print("Firehose's buffer interval has passed to validate created rows")
 
-main()
+if __name__ == "__main__":
+    main()
