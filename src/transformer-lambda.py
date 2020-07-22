@@ -20,6 +20,14 @@ def parse(keys, data_dict, new_dict):
     :param data_dict: a dictionary to be searched
     :param new_dict: a dictionary for storing matching key, values
     """
+    check_types = [
+        isinstance(keys, (list, tuple, set)),
+        isinstance(data_dict, dict),
+        isinstance(new_dict, dict)
+    ]
+    if not all(check_types):
+        raise TypeError("At least one of the inputs has incorrect format")
+    
     for key, value in data_dict.items():
         if key in keys:
             new_dict[key] = value
