@@ -44,7 +44,7 @@ resource "aws_iam_role_policy" "lambda_access_bucket_policy" {
 
 data "archive_file" "transformerLambdaFile" { 
   type = "zip"
-  source_file = "src/transformer-lambda.py"
+  source_file = "src/transformer_lambda.py"
   output_path = "package/transformer-lambda.zip"
 }
 
