@@ -61,8 +61,8 @@ data "aws_iam_policy_document" "lambda_firehose_access" {
 
 data "archive_file" "lambda" { 
   type = "zip"
-  source_file = "src/backend-lambda.py"
-  output_path = "package/backend-lambda.zip"
+  source_file = "src/backend_lambda.py"
+  output_path = "package/backend_lambda.zip"
 }
 
 resource "aws_lambda_function" "userDetailLambda" {
