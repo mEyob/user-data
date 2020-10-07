@@ -1,4 +1,9 @@
-A small test case for testing the following:
+Scripts for unit and integration tests
+
+Two unit test scripts are included for testing the backend and 
+transformer lambda functions
+
+A simple integration test is also included for testing the following:
 
 - Requests with an empty body
 - Requests with malformed JSON
