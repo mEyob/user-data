@@ -3,7 +3,13 @@ import json
 import pytest
 import base64
 from moto import mock_s3
-import transformer_lambda
+
+import sys
+import os
+
+sys.path.append(os.path.join(os.path.dirname(__file__), os.pardir))
+
+from src import transformer_lambda
 
 keys = ["first_name", "middle_name", "last_name", "zip_code"]
 
