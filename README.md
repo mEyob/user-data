@@ -58,12 +58,12 @@ export AWS_DEFAULT_REGION="region"
 git clone https://github.com/mEyob/user-data`
 ```
 
-###### Setup AWS infrastructure
+###### Infrastructure as a Code using Terraform
 
-S3 bucket names should be globally unique accross all AWS accounts. To avoid the `BucketAlreadyExists` Error, change the bucket names in [names.tfvars](names.tfvars) before proceeding to the following Terraform commands. Also, change the Firehose Delivery Stream
+S3 bucket names should be globally unique accross all AWS accounts. To avoid the `BucketAlreadyExists` Error, change the bucket names in [names.tfvars](terraform/names.tfvars) before proceeding to the following Terraform commands. Also, change the Firehose Delivery Stream
 destination bucket name in [transformer-lambda.py](src/transformer-lambda.py) to a new 
-one defined in [names.tfvars](names.tfvars).
-Next, run the following commands.
+one defined in names.tfvars.
+Next, change the working directory to the [terraform](terraform) folder and run the following commands.
 
 ```
 terraform init
@@ -93,7 +93,9 @@ Similarly, the dependency graph for this project is shown [here](img/graph.svg).
 
 ### Testing
 
-To test the pipeline, run the [test_user_info.py](test/test_user_info.py) module and enter
+Unit tests for the backend and transformer lambdas can be done using the scripts in the [test](test) folder. 
+
+To test the pipeline (integration test), run the [test_user_info.py](test/test_user_info.py) module and enter
 the URL generated above. The test script requires the `requests` python module, which can be 
 installed as 
 
